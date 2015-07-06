@@ -8,3 +8,8 @@ exports.answer = function(req, res) {
 	var resultado = req.query.respuesta === 'Roma' ? 'Correcto' : 'Incorrecto';
 	res.render('quizes/answer', {respuesta: resultado});
 };
+
+// Controlador para el GET /author
+exports.author = function(req, res) {
+	res.render('author', {autor: 'Francisco Luis Paredes Parejo'});
+};

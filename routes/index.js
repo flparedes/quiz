@@ -15,4 +15,7 @@ router.get('/quizes/question', quizController.question);
 // GET para /quizes/answer
 router.get('/quizes/answer', quizController.answer);
 
+// GET para /author
+router.get('/author', quizController.author);
+
 module.exports = router;
