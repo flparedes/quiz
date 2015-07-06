@@ -1,0 +1,22 @@
+body {
+  background: #333;
+}
+
+/* Esto incluye un texto justo después del estilo. No se suele utilizar y se muestra a modo de ejemplo */
+#page-wrap:after {
+	content: "Smatphone Layout";
+}
+
+/* Se ocultan elementos */
+h2 span, section h3 {
+	display: none;
+}
+
+body {
+	font-size: xx-large;
+}
+
+/* El pie limpia los flotantes y se muestra en bloque, así que ocupa toda la parte inferior de la pantalla. */
+footer, input {
+	font-size: large;
+}

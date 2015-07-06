@@ -1,0 +1,33 @@
+body {
+  background: #999;
+}
+
+/* Esto incluye un texto justo después del estilo. No se suele utilizar y se muestra a modo de ejemplo */
+#page-wrap:after {
+	content: "Wide Layout";
+}
+
+/* Se hace un menú de navegación flotante a la izquierda */
+nav {
+	text-align: left;
+	float: left;
+	width: 15%;
+	height: 200px;
+}
+
+nav span {
+	margin: 0px 100px 0px 0px;
+}
+
+/* Se hace una sección principal flotante a la derecha del menú */
+section {
+	float: right;
+	width: 80%;
+	height: 200px;
+}
+
+/* El pie limpia los flotantes y se muestra en bloque, así que ocupa toda la parte inferior de la pantalla. */
+footer {
+	clear: both;
+	display: block;
+}
