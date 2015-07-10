@@ -44,3 +44,6 @@ Temporary Items
 
 # Módulos de Node descargables con npm
 node_modules
+
+# Base de datos local de SQLite
+quiz.sqlite
