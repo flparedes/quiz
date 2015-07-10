@@ -1,12 +1,31 @@
 // Aquí se define y configura el modelo de datos del proyecto
 var path = require('path');
 
+// Se extrae de la cadena de conexión de la BD los parámetros de la misma.
+// Postgres DATABASE_URL = postgres://user:pass@host:port/database
+// SQLite 	DATABASE_URL = sqlite://:@:/
+var urlParams = process.env.DATABASE_URL.match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
+var DB_name   = (urlParams[6] || null);
+var user      = (urlParams[2] || null);
+var pass      = (urlParams[3] || null);
+var protocol  = (urlParams[1] || null);
+var dialect   = (urlParams[1] || null);
+var port      = (urlParams[5] || null);
+var host      = (urlParams[4] || null);
+var storage   = process.env.DATABASE_STORAGE;
+
 // Cargar ORM Sequelize
 var Sequelize = require('sequelize');
 
 // Configura la BBDD SQLite
-var sequelize = new Sequelize(null, null, null,
-	{dialect: 'sqlite', storage: 'quiz.sqlite'});
+var sequelize = new Sequelize(DB_name, user, pass,
+	{dialect:  dialect,
+	 protocol: protocol,
+	 port:     port,
+	 host:     host, 
+	 storage:  storage,	// Sólo para SQLite en fichero .env
+	 omitNull: true 	// Sólo para Postgres
+	});
 
 // Se importan las definiciones de tablas
 var Quiz = sequelize.import(path.join(__dirname, 'quiz'));

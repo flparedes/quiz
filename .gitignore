@@ -47,3 +47,6 @@ node_modules
 
 # Base de datos local de SQLite
 quiz.sqlite
+
+# Se ignoran los parámetros de configuración del entorno local
+.env
