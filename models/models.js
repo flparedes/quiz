@@ -1,10 +1,12 @@
 // Aquí se define y configura el modelo de datos del proyecto
 var path = require('path');
 
+var url = process.env.DATABASE_URL || 'sqlite://:@:/';
+
 // Se extrae de la cadena de conexión de la BD los parámetros de la misma.
 // Postgres DATABASE_URL = postgres://user:pass@host:port/database
 // SQLite 	DATABASE_URL = sqlite://:@:/
-var urlParams = process.env.DATABASE_URL.match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
+var urlParams = url.match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
 var DB_name   = (urlParams[6] || null);
 var user      = (urlParams[2] || null);
 var pass      = (urlParams[3] || null);
@@ -12,7 +14,7 @@ var protocol  = (urlParams[1] || null);
 var dialect   = (urlParams[1] || null);
 var port      = (urlParams[5] || null);
 var host      = (urlParams[4] || null);
-var storage   = process.env.DATABASE_STORAGE;
+var storage   = process.env.DATABASE_STORAGE || 'quiz.sqlite';
 
 // Cargar ORM Sequelize
 var Sequelize = require('sequelize');
