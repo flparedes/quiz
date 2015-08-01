@@ -114,6 +114,7 @@ exports.edit = function (req, res) {
 exports.update = function(req, res) {
 	req.quiz.pregunta = req.body.quiz.pregunta;
 	req.quiz.respuesta = req.body.quiz.respuesta;
+	req.quiz.tematica = req.body.quiz.tematica;
 
 	// Se validan los campos antes de guardar los datos
 	req.quiz.validate().then(function(err) {
