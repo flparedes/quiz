@@ -1,11 +1,20 @@
 <form method='get' action='/quizes'>
 	<div>Buscar pregunta: 
-	<input type='text' name='search' value='Texto de búsqueda' /></div>
+	<input type='text' name='search' placeholder='Texto de búsqueda' /></div>
 	<input type='submit' value='Buscar' />
 </form>
 <table>
+	<tr>
+		<td>Temática</td>
+		<td>Pregunta</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
 <% for (var i = 0; i < preguntas.length; i++) { %>
 	<tr>
+		<td>
+			<%= preguntas[i].tematica %>
+		</td>
 		<td>
 			<a href='/quizes/<%= preguntas[i].id %>'><%= preguntas[i].pregunta %></a>
 		</td>

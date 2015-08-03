@@ -1,6 +1,17 @@
 <form method='get' action='/quizes/<%= pregunta.id %>/answer'>
 	<div>Pregunta: <%= pregunta.pregunta %></div>
 	<div>Temática: <%= pregunta.tematica %></div>
-	<input type='text' name='respuesta' value='Indique su respuesta' />
+	<input type='text' name='respuesta' placeholder='Indique su respuesta'/>
 	<input type='submit' value='Enviar' />
 </form>
+
+<p>
+	<a href='/quizes/<%= pregunta.id %>/comments/new'><button>Nuevo comentario</button></a>
+</p>
+
+<p>
+	<strong>Comentarios</strong>
+	<% for (index in pregunta.Comments) { %>
+		<p>- <%= pregunta.Comments[index].comentario %></p>
+	<% } %>
+</p>

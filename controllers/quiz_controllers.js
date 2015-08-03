@@ -8,7 +8,10 @@ var temas = [
 // Controlador para la carga de preguntas
 exports.load = function(req, res, next, quizId) {
 	// Se realiza una búsqueda en Base de Datos.
-	models.Quiz.findById(quizId).then(function (quiz) {
+	models.Quiz.find({
+		where: {id: Number(quizId)},
+		include: [{model: models.Comment}]
+	}).then(function (quiz) {
 		if (quiz) {
 			req.quiz = quiz;
 			next();
@@ -76,7 +79,7 @@ exports.author = function(req, res) {
 exports.new = function (req, res) {
 	var quiz = models.Quiz.build(
 		// Crea un objeto quiz
-		{pregunta: 'pregunta', respuesta: 'respuesta', tematica: 'tematica'}
+		{pregunta: '', respuesta: '', tematica: ''}
 	);
 
 	res.render('quizes/new', {quiz: quiz, temas: temas, errors: []});

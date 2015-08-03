@@ -1,14 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
-// Controlador de quizes
+// Controladores
 var quizController = require('../controllers/quiz_controllers');
+var commentController = require('../controllers/comment_controllers');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Quiz', errors: []});
 });
 
+// RUTAS PARA QUIZ
 // Carga automática de la pregunta cuando hay un parámetro quizId
 router.param('idQuiz', quizController.load);
 
@@ -34,5 +36,9 @@ router.put('/quizes/:idQuiz(\\d+)', quizController.update);
 
 // Rutas para el borrado de preguntas
 router.delete('/quizes/:idQuiz(\\d+)', quizController.destroy);
+
+// RUTAS PARA COMMENT
+router.get('/quizes/:idQuiz(\\d+)/comments/new', commentController.new);
+router.post('/quizes/:idQuiz(\\d+)/comments', commentController.create);
 
 module.exports = router;
