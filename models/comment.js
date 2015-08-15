@@ -6,6 +6,10 @@ module.exports = function(sequelize, DataTypes) {
 		comentario: {
 			type: DataTypes.STRING,
 			validate: {notEmpty: {msg: 'Cometario vacío'}}
+		},
+		publicado: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false
 		}
 	});
 };

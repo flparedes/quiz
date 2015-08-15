@@ -6,6 +6,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
+var debug = require('debug')('quiz:server');
+
+// Importar express-session para la gestión de las sesiones
+var session = require('express-session');
+
 // Importar express-partial como marco de decoración
 var partials = require('express-partials');
 
@@ -25,9 +30,46 @@ app.use(partials());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(cookieParser());
+// Se añade una semilla para el cifrado de la cookie
+app.use(cookieParser('Quiz-2015'));
+app.use(session());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Helpers dinámicos
+app.use(function(req, res, next) {
+  //Guardar el path en session.redir para la redirección tras el login
+  if (!req.path.match(/\/login|\/logout/)) {
+    req.session.redir = req.path;
+  }
+  
+  // Hacer visible req.session en las vistas
+  res.locals.session = req.session;
+  next();
+});
+
+// Control de inactividad
+app.use(function(req, res, next) {
+  // Se comprueba que el usuario esté logado
+  if (req.session.user) {
+		// Se recupera la hora actual y la anterior
+    var date = new Date().getTime();
+    var dateAnt = req.session.ultimaPeticion || date;
+    
+    // Se guarda la hora de la última petición
+    req.session.ultimaPeticion = date;
+    
+    // Si la fecha anterior más 2 minutos es menor que la actual ha caducado la sesión
+    if ((dateAnt + 120000) < date) {
+      delete req.session.user;
+      res.render('session/caducada', {errors: []});
+    } else {
+      next();
+    }
+	} else {
+    next();
+  }
+});
 
 app.use('/', routes);
 

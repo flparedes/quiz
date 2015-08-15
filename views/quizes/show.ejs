@@ -10,8 +10,17 @@
 </p>
 
 <p>
-	<strong>Comentarios</strong>
+	<strong>Comentarios:</strong>
 	<% for (index in pregunta.Comments) { %>
-		<p>- <%= pregunta.Comments[index].comentario %></p>
+		<%  // Si el comentario está publicado o el usuario está logado entonces se muestra
+			if (pregunta.Comments[index].publicado || session.user) { %>
+			<p>- <%= pregunta.Comments[index].comentario %></p>
+			<%  // Si no está publicado se muestra el botón de publicar
+				if (!pregunta.Comments[index].publicado) { %>
+				<a href='/quizes/<%= pregunta.id %>/comments/<%= pregunta.Comments[index].id %>/publish'>
+					<button>Publicar</button>
+				</a>
+			<% } %>
+		<% } %>
 	<% } %>
 </p>
